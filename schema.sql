@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS features (
 );
 
 CREATE TABLE IF NOT EXISTS related_products (
-  related_product_id INT NOT NULL,
+  id SERIAL,
   product_id INT NOT NULL,
+  related_product_id INT NOT NULL,
   PRIMARY KEY(related_product_id),
   CONSTRAINT fk_product_id
     FOREIGN KEY(product_id)
