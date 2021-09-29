@@ -1,1 +1,2 @@
-# SDC
+# System Design Capstone
+
