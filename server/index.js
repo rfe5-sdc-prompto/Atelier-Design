@@ -5,8 +5,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.get('/', (req, res))
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+})
 
 app.listen(PORT, () => {
-  console.log('Server is now running at port: ', port)
+  console.log('Server is now running at port: ', PORT)
 })

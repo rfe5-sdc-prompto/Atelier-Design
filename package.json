@@ -1,15 +1,18 @@
 {
   "name": "sdc",
   "version": "1.0.0",
-  "description": "sdc",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "server-dev": "nodemon index.js",
+    "server-dev": "nodemon --exec babel-node ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
     "express": "^4.17.1",
     "nodemon": "^2.0.13"
   }
