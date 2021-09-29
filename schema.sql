@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS products (
   slogan TEXT,
   description TEXT,
   category VARCHAR(100),
-  default_price VARCHAR(100),
-  PRIMARY KEY(product_id)
+  default_price VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS features (
