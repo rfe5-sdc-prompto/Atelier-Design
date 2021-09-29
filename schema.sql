@@ -5,7 +5,7 @@ CREATE DATABASE product_overview;
 -- Products
 
 CREATE TABLE IF NOT EXISTS products (
-  product_id SERIAL,
+  product_id SERIAL PRIMARY KEY,
   name VARCHAR(100),
   slogan TEXT,
   description TEXT,
@@ -15,21 +15,19 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 CREATE TABLE IF NOT EXISTS features (
-  feature_id SERIAL,
+  feature_id SERIAL PRIMARY KEY,
   product_id INT NOT NULL,
   feature VARCHAR(100),
   value VARCHAR(100),
-  PRIMARY KEY(feature_id),
   CONSTRAINT fk_product_id
     FOREIGN KEY(product_id)
       REFERENCES products(product_id)
 );
 
 CREATE TABLE IF NOT EXISTS related_products (
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   product_id INT NOT NULL,
   related_product_id INT NOT NULL,
-  PRIMARY KEY(related_product_id),
   CONSTRAINT fk_product_id
     FOREIGN KEY(product_id)
       REFERENCES products(product_id)
@@ -38,25 +36,23 @@ CREATE TABLE IF NOT EXISTS related_products (
 -- Styles
 
 CREATE TABLE IF NOT EXISTS product_styles (
-  style_id SERIAL,
+  style_id SERIAL PRIMARY KEY,
   product_id INT NOT NULL,
   name VARCHAR(200),
   slogan TEXT,
   original_price VARCHAR(50),
   sale_price VARCHAR(50),
   style_default BOOLEAN NOT NULL,
-  PRIMARY KEY(style_id),
   CONSTRAINT fk_product_id
     FOREIGN KEY(product_id)
       REFERENCES products(product_id)
 );
 
 CREATE TABLE IF NOT EXISTS style_photos (
-  photos_id SERIAL,
+  photos_id SERIAL PRIMARY KEY,
   style_id INT NOT NULL,
   url TEXT,
   thumbnail_url TEXT,
-  PRIMARY KEY(photos_id),
   CONSTRAINT fk_style_id
     FOREIGN KEY(style_id)
       REFERENCES product_styles(style_id)
@@ -65,22 +61,20 @@ CREATE TABLE IF NOT EXISTS style_photos (
 -- Skus
 
 CREATE TABLE IF NOT EXISTS style_skus (
-  sku_id SERIAL,
+  sku_id SERIAL PRIMARY KEY,
   style_id INT NOT NULL,
   size VARCHAR(50),
   quantity INT,
-  PRIMARY KEY(sku_id),
   CONSTRAINT fk_style_id
     FOREIGN KEY(style_id)
       REFERENCES product_styles(style_id)
 );
 
 CREATE TABLE IF NOT EXISTS cart (
-  cart_id SERIAL,
+  cart_id SERIAL PRIMARY KEY,
   user_session INT,
   product_id INT NOT NULL,
   active INT,
-  PRIMARY KEY(cart_id),
   CONSTRAINT fk_product_id
     FOREIGN KEY(product_id)
       REFERENCES products(product_id)
