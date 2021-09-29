@@ -5,7 +5,7 @@ CREATE DATABASE product_overview;
 -- Products
 
 CREATE TABLE IF NOT EXISTS products (
-  product_id INT SERIAL,
+  product_id SERIAL,
   name VARCHAR(100),
   slogan TEXT,
   description TEXT,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 CREATE TABLE IF NOT EXISTS features (
-  feature_id INT SERIAL,
+  feature_id SERIAL,
   product_id INT NOT NULL,
   feature VARCHAR(100),
   value VARCHAR(100),
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS related_products (
 -- Styles
 
 CREATE TABLE IF NOT EXISTS product_styles (
-  style_id INT SERIAL,
+  style_id SERIAL,
   product_id INT NOT NULL,
   name VARCHAR(200),
   slogan TEXT,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS product_styles (
 );
 
 CREATE TABLE IF NOT EXISTS style_photos (
-  photos_id INT SERIAL,
+  photos_id SERIAL,
   style_id INT NOT NULL,
   url TEXT,
   thumbnail_url TEXT,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS style_photos (
 -- Skus
 
 CREATE TABLE IF NOT EXISTS style_skus (
-  sku_id INT SERIAL,
+  sku_id SERIAL,
   style_id INT NOT NULL,
   size VARCHAR(50),
   quantity INT,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS style_skus (
 );
 
 CREATE TABLE IF NOT EXISTS cart (
-  cart_id INT SERIAL,
+  cart_id SERIAL,
   user_session INT,
   product_id INT NOT NULL,
   active INT,
