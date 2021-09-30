@@ -10,20 +10,18 @@ const pool = new Pool({
 
 pool.connect();
 
-pool.query('SELECT * FROM products LIMIT 5', (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('5 products', res.rows);
-  }
-  pool.end();
-});
+const getProducts = (request, response) => {
+  pool.query('SELECT * FROM products LIMIT 5', (err, data) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      response.status(200).json(data.rows);
+    }
+    pool.end();
+  });
+}
 
-// const client = new Client();
-
-
-
-
-
-
-module.exports = pool;
+module.exports = {
+  getProducts
+};

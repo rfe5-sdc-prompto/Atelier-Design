@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const pool = require('../db');
+const db = require('../db');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
@@ -12,9 +12,11 @@ app.get('/', (req, res) => {
 
 // ROUTES
 
-app.get('/products', (req, res) => {
-  res.status(200).json(res.rows);
-})
+// app.get('/products', (req, res) => {
+//   res.json(res.rows);
+// })
+
+app.get('/products', db.getProducts)
 
 app.listen(PORT, () => {
   console.log('Server is now running at port: ', PORT)
