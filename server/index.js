@@ -12,11 +12,12 @@ app.get('/', (req, res) => {
 
 // ROUTES
 
-// app.get('/products', (req, res) => {
-//   res.json(res.rows);
-// })
+app.get('/products', db.getAllProducts);
+app.get('/products/1', db.getSingleProduct);
+app.get('/products/1/styles', db.getProductStyles);
+app.get('/products/1/related', db.getRelatedProducts);
+app.get('/cart', db.getCart);
 
-app.get('/products', db.getProducts)
 
 app.listen(PORT, () => {
   console.log('Server is now running at port: ', PORT)

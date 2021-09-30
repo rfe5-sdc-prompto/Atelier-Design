@@ -10,18 +10,71 @@ const pool = new Pool({
 
 pool.connect();
 
-const getProducts = (request, response) => {
+const getAllProducts = (req, res) => {
   pool.query('SELECT * FROM products LIMIT 5', (err, data) => {
     if (err) {
       console.log(err);
       throw err;
     } else {
-      response.status(200).json(data.rows);
+      res.status(200).json(data.rows);
     }
-    pool.end();
+  });
+}
+
+const getSingleProduct = (req, res) => {
+  // console.log(req);
+  pool.query('SELECT * FROM products LIMIT 1', (err, data) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log('PRODUCT ID:', data.rows[0].product_id);
+      res.status(200).json(data.rows);
+    }
+  });
+}
+
+const getProductStyles = (req, res) => {
+  // NEED TO JOIN/MERGE PHOTOS & SKUS TABLE
+  pool.query('SELECT * FROM product_styles LIMIT 5', (err, data) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log(data.rows);
+      res.status(200).json(data.rows);
+    }
+  });
+}
+
+const getRelatedProducts = (req, res) => {
+  pool.query('SELECT * FROM related_products LIMIT 5', (err, data) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log(data.rows);
+      res.status(200).json(data.rows);
+    }
+  });
+}
+
+const getCart = (req, res) => {
+  pool.query('SELECT * FROM cart LIMIT 5', (err, data) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log(data.rows);
+      res.status(200).json(data.rows);
+    }
   });
 }
 
 module.exports = {
-  getProducts
+  getAllProducts,
+  getSingleProduct,
+  getProductStyles,
+  getRelatedProducts,
+  getCart
 };
