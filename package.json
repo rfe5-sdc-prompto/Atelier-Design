@@ -13,7 +13,9 @@
     "@babel/core": "^7.15.5",
     "@babel/node": "^7.15.4",
     "@babel/preset-env": "^7.15.6",
+    "@babel/register": "^7.15.3",
     "express": "^4.17.1",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "pg": "^8.7.1"
   }
 }
