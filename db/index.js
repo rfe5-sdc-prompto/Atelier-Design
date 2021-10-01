@@ -15,43 +15,34 @@ const getAllProducts = (req, res) => {
   let page = req.query.page || 1;
   let countLimit = req.query.count || 5;
   let limiter = parseInt(page * countLimit);
-  pool.query(`SELECT * FROM products LIMIT ${limiter}`, (err, data) => {
+  const pQuery = `SELECT * FROM products LIMIT ${limiter}`;
+  pool.query(pQuery, (err, data) => {
     if (err) {
       console.log(err);
       throw err;
     } else {
-      console.log(data.rows);
       res.status(200).json(data.rows);
     }
   });
 }
 
 const getSingleProduct = (req, res) => {
-  // NEED TO JOIN/MERGE FEATURES TABLE
   const productId = req.params.product_id;
-  console.log(productId);
-  // pool.query(`SELECT * FROM products WHERE products.id = ${productId}`, (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //     throw err;
-  //   } else {
-  //     console.log(data.rows[0]);
-  //     res.status(200).json(data.rows[0]);
-  //   }
-  // });
-  // subquery: what I want to aggregate
-  pool.query(`SELECT * FROM products WHERE products.id = ${productId}`, (err, data) => {
+  const pQuery = `SELECT * FROM products WHERE products.id = ${productId}`;
+  pool.query(pQuery, (err, data) => {
     if (err) {
       console.log(err);
       throw err;
     } else {
       const fQuery = `SELECT feature, value FROM features WHERE features.feature_id=${productId}`;
+      // singleProduct data
       const productInfo = data.rows;
       pool.query(fQuery, (err, data) => {
         if (err) {
           console.log(err);
           throw err;
         } else {
+          // create features array of fQuery's object and add to product Info
           productInfo[0].features = data.rows;
           res.status(200).json(productInfo);
         }
