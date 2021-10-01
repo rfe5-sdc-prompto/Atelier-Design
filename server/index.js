@@ -13,10 +13,11 @@ app.get('/', (req, res) => {
 // ROUTES
 
 app.get('/products', db.getAllProducts);
-app.get('/products/1', db.getSingleProduct);
-app.get('/products/1/styles', db.getProductStyles);
-app.get('/products/1/related', db.getRelatedProducts);
+app.get('/products/:product_id', db.getSingleProduct);
+app.get('/products/:product_id/styles', db.getProductStyles);
+app.get('/products/:product_id/related', db.getRelatedProducts);
 app.get('/cart', db.getCart);
+app.post('/cart', db.createCart);
 
 
 app.listen(PORT, () => {
