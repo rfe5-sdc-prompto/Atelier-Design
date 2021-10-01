@@ -21,21 +21,13 @@ const getAllProducts = (req, res) => {
       throw err;
     } else {
       console.log(data.rows);
-      res.status(200).send(data.rows);
+      res.status(200).json(data.rows);
     }
   });
-  // const text = 'SELECT * FROM products VALUES($1, $2)';
-  // const values = ['3', '10']
-  // pool.query(text, values)
-  //   .then(res => {
-  //     console.log(res.rows)
-  //   })
-  //   .catch(e => console.error(e.stack))
 }
 
 const getSingleProduct = (req, res) => {
   const productId = req.params.product_id;
-  console.log(productId);
   pool.query('SELECT * FROM products WHERE product_id = $1', [productId], (err, data) => {
     if (err) {
       console.log(err);
