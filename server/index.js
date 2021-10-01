@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
-})
+});
 
 // ROUTES
 
@@ -22,4 +22,4 @@ app.post('/cart', db.createCart);
 
 app.listen(PORT, () => {
   console.log('Server is now running at port: ', PORT)
-})
+});

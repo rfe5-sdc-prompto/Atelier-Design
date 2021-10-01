@@ -16,39 +16,65 @@ const getAllProducts = (req, res) => {
   let countLimit = req.query.count || 5;
   let limiter = parseInt(page * countLimit);
   const pQuery = `SELECT * FROM products LIMIT ${limiter}`;
-  pool.query(pQuery, (err, data) => {
-    if (err) {
+  // pool.query(pQuery, (err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //     throw err;
+  //   } else {
+  //     res.status(200).json(data.rows);
+  //   }
+  // });
+  pool.query(pQuery)
+    .then((response) => {
+      console.log(response.rows);
+      res.status(200).json(response.rows);
+    })
+    .catch(err => {
       console.log(err);
-      throw err;
-    } else {
-      res.status(200).json(data.rows);
-    }
-  });
+    })
 }
 
 const getSingleProduct = (req, res) => {
   const productId = req.params.product_id;
   const pQuery = `SELECT * FROM products WHERE products.id = ${productId}`;
-  pool.query(pQuery, (err, data) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    } else {
-      const fQuery = `SELECT feature, value FROM features WHERE features.feature_id=${productId}`;
-      // singleProduct data
-      const productInfo = data.rows;
-      pool.query(fQuery, (err, data) => {
-        if (err) {
-          console.log(err);
-          throw err;
-        } else {
-          // create features array of fQuery's object and add to product Info
-          productInfo[0].features = data.rows;
+  const fQuery = `SELECT feature, value FROM features WHERE features.feature_id=${productId}`;
+  // pool.query(pQuery, (err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //     throw err;
+  //   } else {
+  //     const fQuery = `SELECT feature, value FROM features WHERE features.feature_id=${productId}`;
+  //     // singleProduct data
+  //     const productInfo = data.rows;
+  //     pool.query(fQuery, (err, data) => {
+  //       if (err) {
+  //         console.log(err);
+  //         throw err;
+  //       } else {
+  //         // create features array of fQuery's object and add to product Info
+  //         productInfo[0].features = data.rows;
+  //         res.status(200).json(productInfo);
+  //       }
+  //     })
+  //   }
+  // })
+  pool.query(pQuery)
+    .then((response) => {
+      console.log(response.rows);
+      let productInfo = response.rows;
+      pool.query(fQuery)
+        .then((featureData) => {
+          productInfo[0].features = featureData.rows;
+          console.log(productInfo);
           res.status(200).json(productInfo);
-        }
-      })
-    }
-  })
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }
 
 const getProductStyles = (req, res) => {
