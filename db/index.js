@@ -16,14 +16,6 @@ const getAllProducts = (req, res) => {
   let countLimit = req.query.count || 5;
   let limiter = parseInt(page * countLimit);
   const pQuery = `SELECT * FROM products LIMIT ${limiter}`;
-  // pool.query(pQuery, (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //     throw err;
-  //   } else {
-  //     res.status(200).json(data.rows);
-  //   }
-  // });
   pool.query(pQuery)
     .then((response) => {
       console.log(response.rows);
@@ -38,26 +30,6 @@ const getSingleProduct = (req, res) => {
   const productId = req.params.product_id;
   const pQuery = `SELECT * FROM products WHERE products.id = ${productId}`;
   const fQuery = `SELECT feature, value FROM features WHERE features.feature_id=${productId}`;
-  // pool.query(pQuery, (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //     throw err;
-  //   } else {
-  //     const fQuery = `SELECT feature, value FROM features WHERE features.feature_id=${productId}`;
-  //     // singleProduct data
-  //     const productInfo = data.rows;
-  //     pool.query(fQuery, (err, data) => {
-  //       if (err) {
-  //         console.log(err);
-  //         throw err;
-  //       } else {
-  //         // create features array of fQuery's object and add to product Info
-  //         productInfo[0].features = data.rows;
-  //         res.status(200).json(productInfo);
-  //       }
-  //     })
-  //   }
-  // })
   pool.query(pQuery)
     .then((response) => {
       let productInfo = response.rows;
@@ -75,22 +47,6 @@ const getSingleProduct = (req, res) => {
       console.log(err);
     })
 }
-// pool.query(stylesQuery, (err, data) => {
-//   if (err) {
-//     console.log(err);
-//     throw err;
-//   } else {
-//     console.log('name', data.rows);
-//     res.status(200).json(data.rows);
-//   }
-//   if (err) {
-//     console.log(err);
-//     throw err;
-//   } else {
-//     console.log('name', data.rows);
-//     res.status(200).json(data.rows);
-//   }
-// });
 
 const getProductStyles = (req, res) => {
   let productId = req.params.product_id;
@@ -141,13 +97,6 @@ const getRelatedProducts = (req, res) => {
     .catch(err => {
       console.log(err);
     });
-  // if (err) {
-  //   console.log(err);
-  //   throw err;
-  // } else {
-  //   console.log(data.rows);
-  //   res.status(200).json(data.rows);
-  // }
 };
 
 const getCart = (req, res) => {
@@ -160,13 +109,6 @@ const getCart = (req, res) => {
     .catch(err => {
       console.log(err);
     });
-    // if (err) {
-    //   console.log(err);
-    //   throw err;
-    // } else {
-    //   console.log(data.rows);
-    //   res.status(200).json(data.rows);
-    // }
 }
 
 const createCart = (req, res) => {
