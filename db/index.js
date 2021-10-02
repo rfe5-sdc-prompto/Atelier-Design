@@ -57,14 +57,20 @@ const getProductStyles = (req, res) => {
         var test = styleInfo.results.map((result) => {
           let styleId = result.style_id;
           const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${styleId} LIMIT 5`;
-          const skuQuery = `SELECT size, quantity FROM style_skus WHERE style_skus.style_id=${styleId} LIMIT 5`;
+          const skuQuery = `SELECT sku_id, size, quantity FROM style_skus WHERE style_skus.style_id=${styleId} LIMIT 5`;
           return pool.query(photoQuery)
             .then((photoData) => {
               result.photos = photoData.rows;
               return pool.query(skuQuery)
               .then((skuData) => {
-                result.skus = skuData.rows;
-                console.log('skuQuery', result);
+                result.skus = {};
+                for (let i = 0; i < skuData.rows.length; i++) {
+                  let skuId = skuData.rows[i].sku_id;
+                  result.skus[skuId] = {size: skuData.rows[i].size, quantity: skuData.rows[i].quantity};
+                }
+                // result.skus[sku_id] = {size: , quantity: }
+                // result.skus = skuData.rows;
+                // console.log('new sku object', result);
                 return result;
               })
               .catch(err => {
@@ -76,12 +82,15 @@ const getProductStyles = (req, res) => {
             })
           })
         Promise.all(test)
-        .then((data) => {
-          return data;
-        })
-        .then((data) => {
-          res.status(200).send(data);
-        })
+          .then((data) => {
+            // console.log(data);
+            // let skuObject = Object.assign({}, data.skus);
+            // console.log('skus object', skuObject)
+            return data;
+          })
+          .then((data) => {
+            res.status(200).send(data);
+          })
     })
     .catch(err => {
       console.log('Error:', err)
