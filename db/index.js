@@ -56,20 +56,41 @@ const getProductStyles = (req, res) => {
     .then((response) => {
       styleInfo.results = response.rows;
       // console.log(styleInfo);
-      styleInfo.results.map((result) => {
-        let styleId = result.style_id;
-        const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${styleId} LIMIT 5`;
-        pool.query(photoQuery)
-          .then((photoData) => {
-            result.photos = photoData.rows;
-            console.log(result);
+      // Promise.all(
+        var test = styleInfo.results.map((result) => {
+          let styleId = result.style_id;
+          const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${styleId} LIMIT 5`;
+          const skuQuery = `SELECT size, quantity FROM style_skus WHERE style_skus.style_id=${styleId} LIMIT 5`;
+          // return pool.query(photoQuery)
+          return pool.query(photoQuery)
+            .then((photoData) => {
+              result.photos = photoData.rows;
+              console.log('photoQuery', result);
+              return pool.query(skuQuery)
+              .then((skuData) => {
+                result.skus = skuData.rows;
+                console.log('skuQuery', result);
+                return result;
+              })
+              .catch(err => {
+                console.log(err);
+              })
+              // return result;
+            })
+            .catch(err => {
+              console.log(err);
+            })
           })
-          .catch(err => {
-            console.log(err);
-          })
+          // })
+        Promise.all(test)
+        .then((data) => {
+          return data;
         })
+        .then((data) => {
+          res.status(200).send(data);
+        })
+        // )
         // console.log(styleInfo);
-        // res.status(200).json(styleInfo);
       // console.log('RESULT', test);
     })
     .catch(err => {
