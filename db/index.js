@@ -50,19 +50,31 @@ const getSingleProduct = (req, res) => {
 
 const getProductStyles = (req, res) => {
   let productId = req.params.product_id;
-  // console.log(req.params);
-  // NEED TO JOIN/MERGE PHOTOS & SKUS TABLE
+  let styleInfo = { product_id: productId, results: [] };
   const stylesQuery = `SELECT * FROM product_styles WHERE product_styles.product_id=${productId} LIMIT 5`;
   pool.query(stylesQuery)
     .then((response) => {
-      let stylesData = response.rows;
-      return stylesData;
+      styleInfo.results = response.rows;
+      // console.log(styleInfo);
+      styleInfo.results.map((result) => {
+        let styleId = result.style_id;
+        const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${styleId} LIMIT 5`;
+        pool.query(photoQuery)
+          .then((photoData) => {
+            result.photos = photoData.rows;
+            console.log(result);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        })
+        // console.log(styleInfo);
+        // res.status(200).json(styleInfo);
+      // console.log('RESULT', test);
     })
-      // let object = {
-      //   product_id: productId,
-      //   results: stylesData
-      // }
-      // console.log(object);
+    .catch(err => {
+      console.log('Error:', err)
+    });
       // for (let i = 0; i < stylesData.length; i++) {
       //   let photoRow = stylesData[i];
       //   let resultStyleId = stylesData[i].style_id;
@@ -78,9 +90,6 @@ const getProductStyles = (req, res) => {
       // .catch(err => {
       //   console.log(err);
       // })
-      .catch(err => {
-        console.log('Error:', err)
-      });
 }
 
 const getRelatedProducts = (req, res) => {
