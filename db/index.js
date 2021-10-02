@@ -66,7 +66,10 @@ const getProductStyles = (req, res) => {
               result.skus = {};
               for (let i = 0; i < skuData.rows.length; i++) {
                 let skuId = skuData.rows[i].sku_id;
-                result.skus[skuId] = {size: skuData.rows[i].size, quantity: skuData.rows[i].quantity};
+                result.skus[skuId] = {
+                  quantity: skuData.rows[i].quantity,
+                  size: skuData.rows[i].size
+                };
               }
               return result;
             })
