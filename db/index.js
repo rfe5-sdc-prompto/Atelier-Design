@@ -94,47 +94,61 @@ const getSingleProduct = (req, res) => {
 
 const getProductStyles = (req, res) => {
   let productId = req.params.product_id;
-  console.log(req.params);
+  // console.log(req.params);
   // NEED TO JOIN/MERGE PHOTOS & SKUS TABLE
   const stylesQuery = `SELECT * FROM product_styles WHERE product_styles.product_id=${productId} LIMIT 5`;
   pool.query(stylesQuery)
     .then((response) => {
-      const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${productId} LIMIT 5`;
       let stylesData = response.rows;
-      let result = stylesData.map((singleStyle) => {
-        console.log(singleStyle.style_id);
-        // singleStyle.photos = photoData.rows;
-        return singleStyle;
-      });
-      console.log(result);
-      // console.log(stylesData);
-      pool.query(photoQuery)
-        .then((photoData) => {
-          // stylesData[0].photos = photoData.rows;
-          // console.log(photoData.rows);
-          // console.log(result);
-          // res.status(200).json(result);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      return stylesData;
     })
-    .catch(err => {
-      console.log('Error:', err)
-    });
+      // let object = {
+      //   product_id: productId,
+      //   results: stylesData
+      // }
+      // console.log(object);
+      // for (let i = 0; i < stylesData.length; i++) {
+      //   let photoRow = stylesData[i];
+      //   let resultStyleId = stylesData[i].style_id;
+      //   console.log(resultStyleId);
+      //   return resultStyleId;
+      // }
+      // const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${resultStyleId} LIMIT 5`;
+      // // console.log(photoQuery);
+      // pool.query(photoQuery)
+      // .then((photoData) => {
+      //   res.status(200).json('hi');
+      // })
+      // .catch(err => {
+      //   console.log(err);
+      // })
+      .catch(err => {
+        console.log('Error:', err)
+      });
 }
 
 const getRelatedProducts = (req, res) => {
-  pool.query('SELECT * FROM related_products LIMIT 5', (err, data) => {
-    if (err) {
+  const productId = req.params.product_id;
+  const relatedQuery = `SELECT * FROM related_products WHERE product_id=${productId} LIMIT 5`;
+  pool.query(relatedQuery)
+    .then((data) => {
+      let relatedProductId = data.rows.map((singleRow) => {
+        return singleRow.related_product_id;
+      })
+      // console.log(relatedProductId);
+      res.status(200).json(relatedProductId);
+    })
+    .catch(err => {
       console.log(err);
-      throw err;
-    } else {
-      console.log(data.rows);
-      res.status(200).json(data.rows);
-    }
-  });
-}
+    });
+  // if (err) {
+  //   console.log(err);
+  //   throw err;
+  // } else {
+  //   console.log(data.rows);
+  //   res.status(200).json(data.rows);
+  // }
+};
 
 const getCart = (req, res) => {
   pool.query('SELECT * FROM cart LIMIT 5', (err, data) => {
