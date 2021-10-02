@@ -151,15 +151,22 @@ const getRelatedProducts = (req, res) => {
 };
 
 const getCart = (req, res) => {
-  pool.query('SELECT * FROM cart LIMIT 5', (err, data) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    } else {
+  let cartQuery = `SELECT * FROM cart LIMIT 5`;
+  pool.query(cartQuery)
+    .then((data) => {
       console.log(data.rows);
       res.status(200).json(data.rows);
-    }
-  });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    // if (err) {
+    //   console.log(err);
+    //   throw err;
+    // } else {
+    //   console.log(data.rows);
+    //   res.status(200).json(data.rows);
+    // }
 }
 
 const createCart = (req, res) => {
