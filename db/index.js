@@ -11,7 +11,6 @@ const pool = new Pool({
 pool.connect();
 
 const getAllProducts = (req, res) => {
-  // console.log(req.query);
   let page = req.query.page || 1;
   let countLimit = req.query.count || 5;
   let limiter = parseInt(page * countLimit);
@@ -55,17 +54,13 @@ const getProductStyles = (req, res) => {
   pool.query(stylesQuery)
     .then((response) => {
       styleInfo.results = response.rows;
-      // console.log(styleInfo);
-      // Promise.all(
         var test = styleInfo.results.map((result) => {
           let styleId = result.style_id;
           const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${styleId} LIMIT 5`;
           const skuQuery = `SELECT size, quantity FROM style_skus WHERE style_skus.style_id=${styleId} LIMIT 5`;
-          // return pool.query(photoQuery)
           return pool.query(photoQuery)
             .then((photoData) => {
               result.photos = photoData.rows;
-              console.log('photoQuery', result);
               return pool.query(skuQuery)
               .then((skuData) => {
                 result.skus = skuData.rows;
@@ -75,13 +70,11 @@ const getProductStyles = (req, res) => {
               .catch(err => {
                 console.log(err);
               })
-              // return result;
             })
             .catch(err => {
               console.log(err);
             })
           })
-          // })
         Promise.all(test)
         .then((data) => {
           return data;
@@ -89,28 +82,10 @@ const getProductStyles = (req, res) => {
         .then((data) => {
           res.status(200).send(data);
         })
-        // )
-        // console.log(styleInfo);
-      // console.log('RESULT', test);
     })
     .catch(err => {
       console.log('Error:', err)
     });
-      // for (let i = 0; i < stylesData.length; i++) {
-      //   let photoRow = stylesData[i];
-      //   let resultStyleId = stylesData[i].style_id;
-      //   console.log(resultStyleId);
-      //   return resultStyleId;
-      // }
-      // const photoQuery = `SELECT thumbnail_url, url FROM style_photos WHERE style_photos.style_id=${resultStyleId} LIMIT 5`;
-      // // console.log(photoQuery);
-      // pool.query(photoQuery)
-      // .then((photoData) => {
-      //   res.status(200).json('hi');
-      // })
-      // .catch(err => {
-      //   console.log(err);
-      // })
 }
 
 const getRelatedProducts = (req, res) => {
