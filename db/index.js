@@ -17,7 +17,7 @@ const getAllProducts = (req, res) => {
   const pQuery = `SELECT * FROM products LIMIT ${limiter}`;
   pool.query(pQuery)
     .then((response) => {
-      console.log(response.rows);
+      // console.log(response.rows);
       res.status(200).json(response.rows);
     })
     .catch(err => {
