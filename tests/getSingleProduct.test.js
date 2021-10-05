@@ -9,11 +9,10 @@ test('should return a 200 response status', async () => {
     expect(status).toBe(200);
 });
 
-// TEST --> MUST Finish
 test('returns single product', async () => {
   const product = await axios.get('http://localhost:3000/products/1')
     .then((response) => {
       return response.data.length === 1 ? true : false;
     })
   expect(product).toBe(true);
-})
+});

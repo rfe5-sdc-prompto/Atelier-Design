@@ -15,12 +15,3 @@ test('returns 5 styles for product selected', () => {
       return response.data.length === 5 ? true : false;
     })
 }, 30000)
-
-
-// test('returns 5 styles for product selected', async () => {
-//   const stylesList = await axios.get('http://localhost:3000/products/1/styles', getProductStyles)
-//     .then((response) => {
-//       return response.data.length === 5 ? true : false;
-//     })
-//   expect(stylesList).toBe(true);
-// });

@@ -1,15 +1,6 @@
 const axios = require('axios');
 const { getAllProducts } = require('../db/index.js');
 
-// Promise
-// test('returns get request data successfully', () => {
-//   axios.get('http://localhost:3000/products')
-//     .then((response) => {
-//       // console.log(response.data);
-//       expect(response).toBe(response);
-//     })
-// })
-
 // Async / Await
 
 test('should return a 200 response status', async () => {
