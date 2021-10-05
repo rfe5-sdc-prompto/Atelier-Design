@@ -11,7 +11,6 @@ test('should return a 200 response status', async () => {
 
 // TEST --> MUST Finish
 test('returns single product', async () => {
-  // console.log(getSingleProduct());
   const product = await axios.get('http://localhost:3000/products/1')
     .then((response) => {
       return response.data.length === 1 ? true : false;
