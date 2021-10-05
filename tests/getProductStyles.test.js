@@ -7,11 +7,11 @@ test('should return a 200 response status', async () => {
       return response.status;
     })
     expect(status).toBe(200);
-}, 30000);
+});
 
 test('returns 5 styles for product selected', () => {
   return axios.get('http://localhost:3000/products/1/styles')
     .then((response) => {
       return response.data.length === 5 ? true : false;
     })
-}, 30000)
+})
