@@ -1,5 +1,5 @@
 const axios = require('axios');
-// const { getAllProducts } = require('../db/index.js');
+const { getAllProducts } = require('../db/index.js');
 
 // Promise
 // test('returns get request data successfully', () => {
@@ -12,9 +12,9 @@ const axios = require('axios');
 
 // Async / Await
 test('should return 5 products', async () => {
-  const data = await axios.get('http://localhost:3000/products')
+  const productsList = await axios.get('http://localhost:3000/products', getAllProducts)
     .then((response) => {
       return response.data.length === 5 ? true : false;
     })
-  expect(data).toBe(true);
+  expect(productsList).toBe(true);
 });
