@@ -1,8 +1,6 @@
 const axios = require('axios');
 const { getAllProducts } = require('../db/index.js');
 
-// Async / Await
-
 test('should return a 200 response status', async () => {
   const status = await axios.get('http://localhost:3000/products')
     .then((response) => {
