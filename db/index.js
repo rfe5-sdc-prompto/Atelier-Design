@@ -8,7 +8,14 @@ const pool = new Pool({
   port: 5432
 });
 
-pool.connect();
+pool.connect((err, data) => {
+  if (err) {
+    return console.error('Error acquiring client', err.stack)
+  } else {
+    console.log(data);
+  }
+});
+// [1] Get server up and running
 
 const getAllProducts = (req, res) => {
   let page = req.query.page || 1;
