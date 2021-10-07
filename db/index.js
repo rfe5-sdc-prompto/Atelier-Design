@@ -1,10 +1,10 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: 'jordanvillacorta',
-  password: 'Villacorta2018',
-  database: 'product_overview',
-  host: "localhost",
+  user: "postgres",
+  password: "postgres",
+  database: "product_overview",
+  host: "",
   port: 5432
 });
 
@@ -12,10 +12,9 @@ pool.connect((err, data) => {
   if (err) {
     return console.error('Error acquiring client', err.stack)
   } else {
-    console.log(data);
+    console.log('Database is now connected!');
   }
 });
-// [1] Get server up and running
 
 const getAllProducts = (req, res) => {
   let page = req.query.page || 1;
