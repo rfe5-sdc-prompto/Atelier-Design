@@ -1,2 +1,2 @@
-# System Design Capstone
+# Atelier Design
 
