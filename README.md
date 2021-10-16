@@ -1,4 +1,4 @@
-# Project Cadence
+# Project Atelier Design
 
 ## Table of Contents
 - [Team Members](#team-members-&-roles)
@@ -9,26 +9,9 @@
 - [Jordan Villacorta](https://github.com/jordanvillacorta) - [LinkedIn](https://www.linkedin.com/in/jordan-villacorta/)
 
 ## Description
-Project Atelier Design
+E-commerce clothing web application
 
 ## Tech Stack
-
-### Front-End
-JavaScript <img align="left" alt="JavaScript" width="30px" src="https://raw.githubusercontent.com/jmnote/z-icons/master/svg/javascript.svg" />
-<br />
-
-React <img align="left" alt="React" width="30px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
-<br />
-
-CSS <img align="left" alt="CSS3" width="30px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" />
-<br />
-
-styled components <img align="left" width="30px" src="https://miro.medium.com/max/480/1*Iohnw2aOQ5EBghVoqKA7VA.png" />
-<br />
-
-SASS <img align="left" width="30px" src="https://sass-lang.com/assets/img/styleguide/seal-color-aef0354c.png" />
-<br />
-
 
 ### Back-End
 Node.js <img align="left" alt="Node JS" width="30px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" />
