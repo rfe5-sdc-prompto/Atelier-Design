@@ -13,7 +13,7 @@
 This project is a system design project. It uses Node.js and Express for the server handling and PostgreSQL for the database management system.
 This repository contains all the endpoints to get the products, styles, and skus data from the database.
 
-### Database
+## Database
 
 This project uses the PostgreSQL database management system. This repository contains the SQL files for the schema design, as well as an import file to run when importing data from CSV's.
 
