@@ -10,8 +10,8 @@
 
 ## Description
 
-This project is a system design project. It uses Express.js for the server handling and for the database management system it uses PostgreSQL.
-This repository contains all the endpoints to get questions and answers data from the database.
+This project is a system design project. It uses Node.js and Express for the server handling and PostgreSQL for the database management system.
+This repository contains all the endpoints to get the products, styles, and skus data from the database.
 
 ### Database
 
